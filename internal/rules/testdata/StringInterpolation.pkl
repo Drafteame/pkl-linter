@@ -1,0 +1,14 @@
+@ModuleInfo { minPklVersion = "0.25.1" }
+abstract module testdata.StringInterpolation
+
+value: String = "some"
+
+good: String = "\(value) good"
+
+bad1: String = "asd" + value
+
+bad2: String = "asd" + value + "asd"
+
+bad3: String = value + "asd" + value
+
+bad4: String = "value" + value

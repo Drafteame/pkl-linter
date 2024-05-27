@@ -1,0 +1,16 @@
+
+// God spacing
+// ---------------------------
+
+var1 = "asd"
+
+var2 = "asd"
+
+var3 = "asd"
+
+// Bad Spacing
+// ---------------------------
+
+bad1 = "asd"
+bad2 = "asd"
+bad3 = "asd"

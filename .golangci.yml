@@ -1,0 +1,31 @@
+# Options for analysis running.
+run:
+  concurrency: 4
+  allow-parallel-runners: true
+  allow-serial-runners: true
+  go: '1.22'
+
+linters:
+  disable-all: true
+  enable:
+    - errcheck
+    - gosimple
+    - govet
+    - ineffassign
+    - staticcheck
+    - unused
+    - dogsled
+    - dupl
+    - errname
+    - exhaustive
+    - exportloopref
+    - funlen
+    - gocognit
+    - gocyclo
+    - maintidx
+    - gosec
+    - intrange
+    - perfsprint
+    - prealloc
+    - reassign
+

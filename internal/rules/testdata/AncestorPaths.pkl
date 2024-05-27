@@ -1,0 +1,51 @@
+@ModuleInfo { minPklVersion = "0.25.1" }
+module testdata.AncestorPaths
+
+// bad1
+extends "../../some/ancestor/file.pkl"
+
+// bad2
+import "../../some/ancestor/file.pkl"
+
+// bad3
+amends "../../some/ancestor/file.pkl"
+
+// bad4
+some = import("../../some/ancestor/file.pkl")
+
+// bad5
+some2 = import*("../../some/ancestor/*.pkl")
+
+// bad6
+import* "../../some/ancestor/*.pkl"
+
+// bad7
+import "../../some/ancestor/file.pkl" as some3
+
+// bad8
+import* "../../some/ancestor/*.pkl" as some4
+
+
+// good1
+extends ".../some/ancestor/file.pkl"
+
+// good2
+import ".../some/ancestor/file.pkl"
+
+// good3
+amends ".../some/ancestor/file.pkl"
+
+// good4
+someg = import(".../some/ancestor/file.pkl")
+
+// good5
+someg2 = import*(".../some/ancestor/*.pkl")
+
+//good6
+import* ".../some/ancestor/*.pkl"
+
+// good7
+import ".../some/ancestor/file.pkl" as someg3
+
+// good8
+import* ".../some/ancestor/*.pkl" as someg4
