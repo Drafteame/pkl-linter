@@ -6,7 +6,7 @@ before:
     - go mod tidy
 
 builds:
-  - main: ./main.go
+  - main: .
     binary: pkl-linter
     ldflags:
       - -s -w -X github.com/Drafteame/pkl-linter/pkg/version.Version=v{{.Version}}
