@@ -93,6 +93,15 @@ Use this flag to omit certain rules.
 pkl-linter ./my/path --omitRules "rule3,rule4"
 ```
 
+## Rules
+
+The following rules are available:
+
+- `ancestor-paths`: Checks if the ancestor paths follow style guide.
+- `file-naming`: Checks if the file naming follows style guide.
+- `property-spacing`: Checks if the property spacing follows style guide.
+- `string-interpolation`: Checks if the string interpolation follows style guide.
+
 ## License
 
 This project is licensed under the MIT License.
