@@ -92,7 +92,9 @@ func shouldExcludeFolder(folder string, opts searchOptions) bool {
 
 func shouldExcludeFile(file string, opts searchOptions) bool {
 	for _, omit := range opts.excludeFiles {
-		if omit == file {
+		exp := regexp.MustCompile(omit)
+
+		if exp.MatchString(file) {
 			return true
 		}
 	}
