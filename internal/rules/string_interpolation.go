@@ -1,6 +1,7 @@
 package rules
 
 import (
+	"fmt"
 	"regexp"
 
 	ierrors "github.com/Drafteame/pkl-linter/internal/errors"
@@ -21,19 +22,28 @@ func (s *stringInterpolation) Description() string {
 }
 
 func (s *stringInterpolation) Execute(file File) error {
-	interpolationRegex := regexp.MustCompile(`".*"\s*\+\s*.*|.*\s*\+\s*".*"|.*\s*\+\s*.*`)
+	singleLineString := `"(?:\\.|[^"\\])*"`
+	rawSingleLineString := `#"(?:[^"#])*"#`
+	multiLineString := `"""(?:\\.|[^"\\])*"""`
+	rawMultiLineString := `#"""(?:[^"#])*"""#`
+
+	stringPattern := fmt.Sprintf(`(?:%s|%s|%s|%s)`, singleLineString, rawSingleLineString, multiLineString, rawMultiLineString)
+
+	interpolationRegex := regexp.MustCompile(fmt.Sprintf(`\s*=\s*(?:%s\s*\+\s*)+.*|(?:.*\s*\+\s*)+%s\s*`, stringPattern, stringPattern))
+
+	validContentRegex := regexp.MustCompile(`\s*=\s*"\+".*|\s*=\s*".*\+".*`)
 
 	return file.Scan(func(info files.FileScanInfo) error {
-		if !interpolationRegex.MatchString(info.Text()) {
-			return nil
+		if interpolationRegex.MatchString(info.Text()) && !validContentRegex.MatchString(info.Text()) {
+			return ierrors.LintError{
+				RuleName:    s.name,
+				Description: s.description,
+				LineNumber:  info.LineNumber(),
+				FilePath:    info.FilePath(),
+			}
 		}
 
-		return ierrors.LintError{
-			RuleName:    s.name,
-			Description: s.description,
-			LineNumber:  info.LineNumber(),
-			FilePath:    info.FilePath(),
-		}
+		return nil
 	})
 }
 
